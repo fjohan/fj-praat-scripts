@@ -75,10 +75,10 @@ select 'srev'
 Edit
 endproc
 
-nocheck select all
-nocheck Remove
+#nocheck select all
+#nocheck Remove
 #Read from file: "/home/johanf/EST/lu_se_nn_nst_cg/wav-autosyl/data_00003.wav"
-Read from file: "C:\Users\ling-jfr\Documents\Praat\data_00003.wav"
+#Read from file: "C:\Users\ling-jfr\Documents\Praat\data_00003.wav"
 call RunningDuration
 
 
