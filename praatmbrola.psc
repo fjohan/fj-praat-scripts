@@ -10,7 +10,7 @@
 #		button en1
 #endform
 
-mbrola_database == 1
+mbrola_database = 1
 
 nsel = numberOfSelected("Sound")
 ntg = numberOfSelected("TextGrid")
@@ -65,6 +65,7 @@ niv = Get number of intervals... 1
 for i from 1 to niv
 	select 'tg1'
 	labi$ = Get label of interval... 1 'i'
+	if labi$ != ""
 	sti = Get starting point... 1 'i'
 	eni = Get end point... 1 'i'
 	dur = round((eni - sti) * 1000)
@@ -86,6 +87,7 @@ for i from 1 to niv
 		endif
 	endfor
 	print 'newline$'
+	endif
 endfor
 
 head$ = "; created with praatmbrola.psc"
@@ -93,6 +95,9 @@ head$ = "; created with praatmbrola.psc"
 head$ > 'photmp$'
 newline$ >> 'photmp$'
 fappendinfo 'photmp$'
+
+exit
+pause 
 system 'mbrolaprog$' 'mbrolapath$' 'photmp$' 'wavtmp$'
 Read from file... 'wavtmp$'
 
