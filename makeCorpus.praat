@@ -8,25 +8,38 @@ shortpe=1/maxpi
 vlper=0.02
 targetper=0.015
 
-baseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wav/"
-obaseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wavpn/"
-str1=Create Strings as file list: "fileList", "/home/johanf/EST/lu_se_nn_nst_cg/wav/data_*.wav"
+if unix
+	str1=Create Strings as file list: "fileList", "/home/johanf/EST/lu_se_nn_nst_cg/wav/data_*.wav"
+	baseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wav/"
+	obaseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wavpn/"
+endif
+if windows
+	str1=Create Strings as file list: "fileList", "C:\Users\ling-jfr\dev\wav\data_*.wav"
+	baseDir$="C:\Users\ling-jfr\dev\wav\"
+endif
 
 nstr=Get number of strings
 
 #######################
 # method 1: without epoch synch
 if 1
-for fileno from 1000 to 1100
+#for fileno from 1000 to 1010
+for fileno from 2 to 10
 	select 'str1'
 	mystr$=Get string: fileno
 	file$ = baseDir$+mystr$
-	s1=Read from file... 'file$'
+	writeInfoLine: file$
+	s1=Read from file: file$
 endfor
 select all
 minus 'str1'
 Concatenate
-Save as WAV file: "/home/johanf/EST/lu_se_nn_nst_cg/wav/corpus1.wav"
+if unix
+	Save as WAV file: "/home/johanf/EST/lu_se_nn_nst_cg/wav/corpus1.wav"
+endif
+if windows
+	Save as WAV file: "C:\Users\ling-jfr\dev\wav\corpus1.wav"
+endif
 endif
 
 ##########################
@@ -165,7 +178,6 @@ for fileno from 1 to nstr
 	file$ = obaseDir$+mystr$
 	s1=Read from file... 'file$'
 endfor
-endif
 
 select all
 minus 'str1'
@@ -183,3 +195,4 @@ Concatenate
 Save as WAV file: "/home/johanf/EST/lu_se_nn_nst_cg/wav/corpus.wav"
 totdur=Get total duration
 writeInfoLine: totdur
+endif

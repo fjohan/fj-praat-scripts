@@ -1,20 +1,25 @@
 nocheck select all
 nocheck Remove
 
-baseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wav/"
+if unix
+	baseDir$="/home/johanf/EST/lu_se_nn_nst_cg/wav/"
+endif
+if windows
+	baseDir$="C:\Users\ling-jfr\dev\wav\"
+endif
 
 file1$=baseDir$+"data_00003.wav"
 #file2$=baseDir$+"data_00004.wav"
 file2$=baseDir$+"corpus1.wav"
 
-s1=Read from file... 'file1$'
-s2=Read from file... 'file2$'
+s1=Read from file: file1$
+s2=Read from file: file2$
 Rename... 's2'
 plus 's1'
 
-tstep=0.015
+tstep=0.005
 anwinlen=0.032
-sywinlen=0.015
+sywinlen=0.032
 overlap=0.005
 halfwin=sywinlen/2
 noprogress To MFCC: 12, 'anwinlen', 'tstep', 100, 100, 0
@@ -47,7 +52,10 @@ for i from 2 to nrow
 	oldCurrent=selected("Sound")
 
 	select 's2'
-	s5=Extract part for overlap: xtime-halfwin, xtime+halfwin, overlap
+	s5=Extract part: xtime-halfwin, xtime+halfwin, "rectangular", 1, "no"
+	Rename... 's5'
+
+	#s5=Extract part for overlap: xtime-halfwin, xtime+halfwin, overlap
 	plus 'sCurrent'
 	sCurrent=Concatenate with overlap: overlap
 
